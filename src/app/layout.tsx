@@ -43,8 +43,8 @@ export default function RootLayout({
                 </a>
               </li>
               <li>
-                <a href="/calculator" className="hover:text-gray-400">
-                  계산기
+                <a href="/retirement" className="hover:text-gray-400">
+                  은퇴 계산기
                 </a>
               </li>
               <li>
@@ -57,7 +57,14 @@ export default function RootLayout({
         </header>
 
         {/* Main content */}
-        <main className="pt-12">{children}</main> {/* pt-12로 간격 설정 */}
+        <main className="pt-12 pb-20">{children}</main> {/* pt-12로 간격 설정 */}
+
+        {/* Footer */}
+        <footer className="bg-gray-800 text-white p-4 fixed bottom-0 left-0 w-full">
+          <div className="text-center">
+            <p>&copy; {new Date().getFullYear()} New-Rich. All rights reserved.</p>
+          </div>
+        </footer>
       </body>
     </html>
   );
