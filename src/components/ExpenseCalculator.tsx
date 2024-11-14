@@ -1,5 +1,6 @@
 "use client";
 
+import convertToKoreanCurrency from '@/utils/UtilConvertToKoreanCurrency';
 import React, { useState, useEffect } from 'react';
 
 // 숫자에 천 단위 쉼표를 추가하는 함수
@@ -33,9 +34,9 @@ const ExpenseCalculator: React.FC = () => {
     const r = parseFloat(rate.replace(/,/g, '')) / 100;
 
     setResult(`
-      은퇴자금 ${formatNumber(cap)}원으로 연 ${rate}%의 수익률을 기대할 때,
-       <span class="text-red-500 font-bold">연 생활비 ${formatNumber((cap * r).toFixed(0))}원
-      (월 생활비 ${formatNumber((cap * r / 12).toFixed(0))}원)</span>을 사용할 수 있습니다.
+      은퇴자금 ${convertToKoreanCurrency(cap)}원으로 연 ${rate}%의 수익률을 기대할 때,
+       <span class="text-red-500 font-bold">연 생활비 ${convertToKoreanCurrency((cap * r).toFixed(0))}원
+      (월 생활비 ${convertToKoreanCurrency((cap * r / 12).toFixed(0))}원)</span>을 사용할 수 있습니다.
     `);
   }, [capital, rate]);
 

@@ -96,6 +96,7 @@ const CompoundInterestCalculator: React.FC = () => {
           <input
             type="text"
             value={capital}
+            maxLength={19}
             onChange={handleCapitalChange}
             placeholder="원금"
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -154,6 +155,7 @@ const CompoundInterestCalculator: React.FC = () => {
             value={compoundingPeriods}
             onChange={handleCompoundingPeriodsChange}
             placeholder="횟수"
+            maxLength={5}
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="px-2 text-gray-900">회</span>
