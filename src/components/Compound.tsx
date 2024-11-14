@@ -156,6 +156,7 @@ const CompoundInterestCalculator: React.FC = () => {
             placeholder="횟수"
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <span className="px-2 text-gray-900">회</span>
         </div>
         {/* 간단입력 버튼 */}
         <div className="flex flex-col justify-end mt-2 space-y-2">
