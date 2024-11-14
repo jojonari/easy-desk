@@ -1,5 +1,6 @@
 "use client";
 
+import convertToKoreanCurrency from '@/utils/UtilConvertToKoreanCurrency';
 import React, { useState } from 'react';
 
 // 숫자에 천 단위 쉼표를 추가하는 함수
@@ -14,15 +15,9 @@ const formatNumber = (num: number | string) => {
 const CompoundInterestCalculator: React.FC = () => {
   const [capital, setCapital] = useState<string>('0');
   const [interestRate, setInterestRate] = useState<string>('0');
-  const [compoundingPeriods, setCompoundingPeriods] = useState<string>('0');
+  const [compoundingPeriods, setCompoundingPeriods] = useState<string>('1');
   const [compoundResults, setCompoundResults] = useState<Array<{ period: number; amount: string; interest: string; rate: string }>>([]);
 
-  const resetCalculator = () => {
-    setCapital('0');
-    setInterestRate('0');
-    setCompoundingPeriods('0');
-    setCompoundResults([]);
-  };
 
   const calculateCompoundInterest = () => {
     const principal = parseFloat(capital.replace(/,/g, ''));
@@ -52,28 +47,18 @@ const CompoundInterestCalculator: React.FC = () => {
 
   const handleCapitalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/,/g, '');
-    setCapital(formatNumber(value));
+      setCapital(formatNumber(value));
   };
 
   const handleInterestRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setInterestRate(value);
+      setInterestRate(value);
   };
 
   const handleCompoundingPeriodsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setCompoundingPeriods(value);
-  };
-
-  // 간단입력 버튼 함수
-  const handleSimpleInput = (value: string, type: string) => {
-    if (type === 'capital') {
-      setCapital(value);
-    } else if (type === 'interestRate') {
-      setInterestRate(value);
-    } else if (type === 'compoundingPeriods') {
+    // 숫자만 허용하고 음수는 제외
       setCompoundingPeriods(value);
-    }
   };
 
   // 수익률과 횟수 변경 함수
@@ -87,6 +72,7 @@ const CompoundInterestCalculator: React.FC = () => {
     setCompoundingPeriods(newPeriods.toString());
   };
 
+  
   return (
     <div className="w-full">
       {/* 원금 입력 */}
@@ -97,11 +83,16 @@ const CompoundInterestCalculator: React.FC = () => {
             type="text"
             value={capital}
             maxLength={19}
+            min={0}
             onChange={handleCapitalChange}
             placeholder="원금"
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="px-2 text-gray-900">원</span>
+        </div>
+        {/* 한글로 변환된 금액 표시 */}
+        <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
+          {convertToKoreanCurrency(capital)} 원
         </div>
         {/* 간단입력 버튼 */}
         <div className="flex flex-col justify-end mt-2 space-y-2">
@@ -125,6 +116,7 @@ const CompoundInterestCalculator: React.FC = () => {
           <input
             type="text"
             value={interestRate}
+            maxLength={5}
             onChange={handleInterestRateChange}
             placeholder="수익률(%)"
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -156,6 +148,7 @@ const CompoundInterestCalculator: React.FC = () => {
             onChange={handleCompoundingPeriodsChange}
             placeholder="횟수"
             maxLength={5}
+            min={0}
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="px-2 text-gray-900">회</span>

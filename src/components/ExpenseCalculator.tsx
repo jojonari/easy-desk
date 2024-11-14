@@ -22,11 +22,6 @@ const ExpenseCalculator: React.FC = () => {
   const [rate, setRate] = useState<string>('0');
   const [result, setResult] = useState<string | null>(null);
 
-  const resetCalculator = () => {
-    setCapital('0');
-    setRate('0');
-    setResult(null);
-  };
 
   // 연이율 및 생활비 계산 로직을 useEffect에서 관리하여 실시간 업데이트
   useEffect(() => {
@@ -34,6 +29,10 @@ const ExpenseCalculator: React.FC = () => {
     const r = parseFloat(rate.replace(/,/g, '')) / 100;
 
     setResult(`
+      <div style="text-align: center;">
+        결과(연) : <span class="text-red-500 font-bold">${formatNumber((cap * r).toFixed(0))} 원 ( ${convertToKoreanCurrency((cap * r).toFixed(0))} 원)</span><br>
+        결과(월) : <span class="text-red-500 font-bold">${formatNumber((cap * r / 12).toFixed(0))} 원 ( ${convertToKoreanCurrency((cap * r / 12).toFixed(0))} 원)</span>
+      </div>
       은퇴자금 ${convertToKoreanCurrency(cap)}원으로 연 ${rate}%의 수익률을 기대할 때,
        <span class="text-red-500 font-bold">연 생활비 ${convertToKoreanCurrency((cap * r).toFixed(0))}원
       (월 생활비 ${convertToKoreanCurrency((cap * r / 12).toFixed(0))}원)</span>을 사용할 수 있습니다.
@@ -63,6 +62,10 @@ const ExpenseCalculator: React.FC = () => {
             className="w-2/3 p-3 border border-gray-300 rounded-l-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="px-2 text-gray-900">원</span>
+        </div>
+        {/* 한글로 변환된 금액 표시 */}
+        <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
+          {convertToKoreanCurrency(capital)} 원
         </div>
         <div className="flex flex-col justify-end mt-2 space-y-2">
           <div className="flex space-x-2 w-full">

@@ -5,10 +5,13 @@ const convertToKoreanCurrency = (value: string | number | bigint | boolean) => {
   if (typeof value === 'string') {
     value = value.replace(/[^0-9]/g, '');  // 숫자만 남기기
   }
-
   // 문자열을 BigInt로 변환
   value = BigInt(value);
 
+   // value가 0인 경우 처리
+   if (value === 0n) { 
+    return '0';
+  }
   // 단위 배열 (큰 단위까지 포함)
   const units = ['', '만', '억', '조', '경', '해', '자', '양', '구', '간', '정', '재', '극', '항하사세', '아승기', '나유타', '불가사의', '무량대수'];
 

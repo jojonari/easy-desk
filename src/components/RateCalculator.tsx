@@ -35,7 +35,7 @@ const getCookie = (name: string) => {
 const RateCalculator: React.FC = () => {
   const [capital, setCapital] = useState<string>('0');
   const [annualExpense, setAnnualExpense] = useState<string>('0');
-  const [result, setResult] = useState<string | null>(null);
+  const [result, setResult] = useState<string | null>('0');
   const [isMonthly, setIsMonthly] = useState<boolean>(false);
 
   useEffect(() => {
@@ -43,11 +43,6 @@ const RateCalculator: React.FC = () => {
     setIsMonthly(savedIsMonthly);
   }, []);
 
-  const resetCalculator = () => {
-    setCapital('0');
-    setAnnualExpense('0');
-    setResult(null);
-  };
 
   const calculateRate = () => {
     const cap = parseFloat(capital.replace(/,/g, ''));
@@ -58,7 +53,11 @@ const RateCalculator: React.FC = () => {
     }
 
     setResult(
-      `은퇴자금 ${convertToKoreanCurrency(cap)}원으로 ${isMonthly ? '월간' : '연간'} 생활비 ${convertToKoreanCurrency(annualExpense)}원을 사용하기 위해서는 필요 수익률은 <span class="text-red-500 font-bold"> ${formatNumber(((exp / cap) * 100).toFixed(2))}%</span> 입니다.`
+      `
+      <div style="text-align: center;">
+        결과 : <span class="text-red-500 font-bold">${formatNumber(((exp / cap) * 100).toFixed(2))}%</span>
+      </div>
+      은퇴자금 ${convertToKoreanCurrency(cap)}원으로 ${isMonthly ? '월간' : '연간'} 생활비 ${convertToKoreanCurrency(annualExpense)}원을 사용하기 위해서는 필요 수익률은 <span class="text-red-500 font-bold"> ${formatNumber(((exp / cap) * 100).toFixed(2))}%</span> 입니다.`
     );
   };
 
@@ -98,6 +97,10 @@ const RateCalculator: React.FC = () => {
           />
           <span className="px-2 text-gray-900">원</span>
         </div>
+        {/* 한글로 변환된 금액 표시 */}
+        <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
+          {convertToKoreanCurrency(capital)} 원
+        </div>
         <div className="flex flex-col justify-end mt-2 space-y-2">
           <div className="flex space-x-2 w-full">
             <button onClick={() => setCapital(prev => (parseInt(prev.replace(/,/g, '')) + 100000000).toLocaleString())} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1억</button>
@@ -134,6 +137,10 @@ const RateCalculator: React.FC = () => {
             className="w-2/3 p-3 border border-gray-300 rounded-r-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <span className="px-2 text-gray-900">원</span>
+        </div>
+        {/* 한글로 변환된 금액 표시 */}
+        <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
+          {convertToKoreanCurrency(annualExpense)} 원
         </div>
         <div className="flex flex-col justify-end mt-2 space-y-2">
           <div className="flex space-x-2 w-full">

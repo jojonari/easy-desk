@@ -1,5 +1,6 @@
 "use client";
 
+import convertToKoreanCurrency from '@/utils/UtilConvertToKoreanCurrency';
 import React, { useState, useEffect } from 'react';
 
 const Calculator: React.FC = () => {
@@ -76,7 +77,12 @@ const Calculator: React.FC = () => {
         {/* Result Field */}
         <div className="text-right text-4xl sm:text-5xl font-semibold text-blue-800 mb-4 p-4 bg-gray-200 rounded-md shadow-inner overflow-x-auto">
           {result}
+        {/* 한글로 변환된 금액 표시 */}
+        <div className="mt-2 text-sm text-gray-700 font-semibold text-right items-center justify-items-center">
+          {convertToKoreanCurrency(result)}
         </div>
+        </div>
+        
 
         {/* Calculator Buttons */}
         <div className="grid grid-cols-4 gap-2">
@@ -104,7 +110,6 @@ const Calculator: React.FC = () => {
 
         {/* History Section */}
         <div className="mt-6 bg-gray-100 rounded-md shadow-inner p-4">
-          <h2 className="text-lg font-semibold text-gray-700 mb-2">Calculation History</h2>
           <div className="h-40 overflow-y-auto">
             {history.length === 0 ? (
               <p className="text-gray-500">No history</p>
