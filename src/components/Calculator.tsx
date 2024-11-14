@@ -65,7 +65,7 @@ const Calculator: React.FC = () => {
   const formattedInput = input ? input.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '0';
 
   return (
-    <div className="flex justify-center w-screen bg-gray-200 p-2">
+    <div className="flex justify-center w-full bg-gray-200 p-2">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
         
         {/* Input Field */}
