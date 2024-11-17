@@ -1,5 +1,5 @@
 import React from 'react';
-import RateCalculator from '@/components/RateCalculator';
+import RateCalculator from '@/components/calculator/RateCalculator';
 
 const Home: React.FC = () => {
   return (

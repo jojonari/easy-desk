@@ -1,5 +1,5 @@
 import React from 'react';
-import ExpenseCalculator from '@/components/calculator/ExpenseCalculator';
+import FourPercentRuleCalculator from '@/components/calculator/FourPercentRuleCalculator';
 
 const Home: React.FC = () => {
   return (
@@ -7,7 +7,7 @@ const Home: React.FC = () => {
       {/* Calculator */}
       <div className="flex flex-grow justify-center w-full h-full p-2">
         <div className="flex-1 w-full h-full max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-          <ExpenseCalculator />
+          <FourPercentRuleCalculator />
         </div>
       </div>
 

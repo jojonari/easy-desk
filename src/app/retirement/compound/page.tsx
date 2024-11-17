@@ -1,5 +1,5 @@
 import React from 'react';
-import CompoundInterestCalculator from '@/components/Compound';
+import CompoundInterestCalculator from '@/components/calculator/Compound';
 
 const Home: React.FC = () => {
   return (

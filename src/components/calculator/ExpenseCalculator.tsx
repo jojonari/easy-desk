@@ -1,25 +1,13 @@
 "use client";
 
 import convertToKoreanCurrency from '@/utils/UtilConvertToKoreanCurrency';
+import formatNumber from '@/utils/UtilFormatNumber';
 import React, { useState, useEffect } from 'react';
-
-// 숫자에 천 단위 쉼표를 추가하는 함수
-const formatNumber = (num: number | string) => {
-  if (!num) return '';
-  let formatted = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-
-  // 소수점이 0인 경우 제거
-  if (formatted.includes('.')) {
-    formatted = formatted.replace(/\.0$/, '');
-  }
-
-  return formatted;
-};
 
 // 생활비 계산기 컴포넌트
 const ExpenseCalculator: React.FC = () => {
-  const [capital, setCapital] = useState<string>('0');
-  const [rate, setRate] = useState<string>('0');
+  const [capital, setCapital] = useState<string>('10000000');
+  const [rate, setRate] = useState<string>('3.5');
   const [result, setResult] = useState<string | null>(null);
 
 
@@ -50,8 +38,14 @@ const ExpenseCalculator: React.FC = () => {
   };
 
   return (
-    <div className="w-full">
-      <div className="mb-4">
+    <div className="w-full space-y-8">
+        <div className="p-6 bg-gray-100 rounded-lg shadow-md">
+
+        <div className="mb-6 text-center">
+          <h2 className="text-3xl font-bold text-gray-800">은퇴생활비 계산기</h2>
+          <p className="text-gray-600 text-sm mt-2">은퇴자금과 수익률을 바탕으로 은퇴생활비를 계산합니다.</p>
+          <hr className="my-4" />
+        </div>
         <label className="block text-lg font-semibold text-gray-700 mb-2">은퇴자금</label>
         <div className="flex justify-end">
           <input
@@ -79,9 +73,7 @@ const ExpenseCalculator: React.FC = () => {
             <button onClick={() => setCapital(prev => (parseInt(prev.replace(/,/g, '')) - 1000000).toLocaleString())} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1백</button>
           </div>
         </div>
-      </div>
-
-      <div className="mb-4">
+        <br/>
         <label className="block text-lg font-semibold text-gray-700 mb-2">수익률(%)</label>
         <div className="flex justify-end">
           <input

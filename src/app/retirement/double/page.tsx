@@ -1,5 +1,5 @@
 import React from 'react';
-import DoubleCapitalCalculator  from '@/components/Double';
+import DoubleCapitalCalculator  from '@/components/calculator/Double';
 
 const Home: React.FC = () => {
   return (

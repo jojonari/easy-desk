@@ -1,10 +1,19 @@
 // utils/convertToKoreanCurrency.js
 
-const convertToKoreanCurrency = (value: string | number | bigint | boolean) => {
+const convertToKoreanCurrency = (value: string | number | bigint) => {
+  // 숫자형 값이 들어오면 소수점을 제거
+  if (typeof value === 'number') {
+    value = Math.floor(value); // 소수점 내림
+  } else if (typeof value === 'string' && !isNaN(Number(value))) {
+    // 문자열이 숫자로 변환 가능하면 소수점 내림 처리
+    value = Math.floor(Number(value));
+  }
+  
   // 숫자나 문자열을 입력받고, BigInt로 변환
   if (typeof value === 'string') {
     value = value.replace(/[^0-9]/g, '');  // 숫자만 남기기
   }
+
   // 문자열을 BigInt로 변환
   value = BigInt(value);
 

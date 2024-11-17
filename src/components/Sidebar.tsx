@@ -56,13 +56,13 @@ export default function Sidebar() {
               </li>
               <li>
                 <a href="/retirement/rate" className="block hover:text-gray-400 p-2">
-                    이율(배당률) 계산기
+                    수익률 계산기
                 </a>
                 <hr className="border-gray-500" />
               </li>
               <li>
                 <a href="/retirement/expense" className="block hover:text-gray-400 p-2">
-                    생활비 계산기
+                    은퇴생활비 계산기
                 </a>
                 <hr className="border-gray-500" />
               </li>
@@ -74,7 +74,13 @@ export default function Sidebar() {
               </li>
               <li>
                 <a href="/retirement/double" className="block hover:text-gray-400 p-2">
-                    원금2배 계산기
+                    기간/수익률 계산기
+                </a>
+                <hr className="border-gray-500" />
+              </li>
+              <li>
+                <a href="/retirement/fourPercentRule" className="block hover:text-gray-400 p-2">
+                    4%룰 인출 계산기
                 </a>
                 <hr className="border-gray-500" />
               </li>
@@ -102,19 +108,19 @@ export default function Sidebar() {
             <ul className="space-y-2 pl-4">
               <li>
                 <a
-                  href="/currency-converter"
+                  href="/converter/area"
                   className="block hover:text-gray-400 p-2"
                 >
-                  통화 변환기
+                  넓이 변환기
                 </a>
                 <hr className="border-gray-500" />
               </li>
               <li>
                 <a
-                  href="/unit-converter"
+                  href="/converter/length"
                   className="block hover:text-gray-400 p-2"
                 >
-                  단위 변환기
+                  길이 변환기
                 </a>
                 <hr className="border-gray-500" />
               </li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import CapitalCalculator from '@/components/CapitalCalculator';
+import CapitalCalculator from '@/components/calculator/CapitalCalculator';
 
 const Home: React.FC = () => {
   return (
