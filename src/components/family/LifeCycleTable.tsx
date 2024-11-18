@@ -3,13 +3,21 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 
+type LifeCycleRow = {
+  dadAge: number;
+  momAge: number;
+  dadEvent: string;
+  momEvent: string;
+  [key: string]: number | string; // For dynamic keys like `child1Age`, `child1Event`, etc.
+};
+
 const LifeCycleTable: React.FC = () => {
   const [children, setChildren] = useState<
     { birthYear: number; gender: string }[]
   >([]);
   const [dadBirthYear, setDadBirthYear] = useState<string>("");
   const [momBirthYear, setMomBirthYear] = useState<string>("");
-  const [tableData, setTableData] = useState<any[]>([]);
+  const [tableData, setTableData] = useState<LifeCycleRow[]>([]);
 
   // Load data from cookies on component mount
   useEffect(() => {
@@ -45,7 +53,8 @@ const LifeCycleTable: React.FC = () => {
 
   const toggleGender = (index: number) => {
     const updatedChildren = [...children];
-    updatedChildren[index].gender = updatedChildren[index].gender === "남자" ? "여자" : "남자";
+    updatedChildren[index].gender =
+      updatedChildren[index].gender === "남자" ? "여자" : "남자";
     setChildren(updatedChildren);
   };
 
@@ -53,26 +62,36 @@ const LifeCycleTable: React.FC = () => {
     const dadYear = parseInt(dadBirthYear, 10);
     const momYear = parseInt(momBirthYear, 10);
 
-    if (isNaN(dadYear) || isNaN(momYear) || children.some((c) => c.birthYear === 0)) {
+    if (
+      isNaN(dadYear) ||
+      isNaN(momYear) ||
+      children.some((c) => c.birthYear === 0)
+    ) {
       alert("모든 입력란에 숫자를 입력해주세요.");
       return;
     }
 
     const currentYear = new Date().getFullYear();
 
-    const minChildBirthYear = Math.min(...children.map((child) => child.birthYear));
+    const minChildBirthYear = Math.min(
+      ...children.map((child) => child.birthYear)
+    );
     const startYear = minChildBirthYear;
 
     const maxAge = Math.max(
-      ...children.map((child) =>
-        currentYear - child.birthYear + (child.gender === "남자" ? 85 : 90)
+      ...children.map(
+        (child) =>
+          currentYear -
+          child.birthYear +
+          (child.gender === "남자" ? 85 : 90)
       )
     );
 
-    const data: any[] = [];
-
+    const data: LifeCycleRow[] = []; // Updated type for the array
+   
+    
     for (let year = startYear; year <= startYear + maxAge; year++) {
-      const row: any = {
+      const row: LifeCycleRow = {
         dadAge: year - dadYear,
         momAge: year - momYear,
         dadEvent: "",
@@ -93,7 +112,7 @@ const LifeCycleTable: React.FC = () => {
         const childAge = year - child.birthYear;
 
         if (childAge >= 0) {
-          let events: string[] = [];
+          const events: string[] = [];
 
           if (childAge >= 7 && childAge <= 12) {
             events.push(`초 ${childAge - 6}학년`);
@@ -131,6 +150,7 @@ const LifeCycleTable: React.FC = () => {
 
     setTableData(data);
   };
+
 
   return (
     <div className="max-w-screen-xl mx-auto space-y-6 p-4 bg-gray-100 rounded-lg shadow-md">

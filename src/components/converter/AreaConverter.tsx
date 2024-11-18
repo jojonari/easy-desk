@@ -14,16 +14,19 @@ const conversionRates = {
   py: 3.306,    // 평 (평 = 3.306 m^2)
   danbo: 35.58, // 단보 (1 단보 = 35.58 m^2)
   jeongbo: 356, // 정보 (1 정보 = 356 m^2)
-};
+} as const; // Ensure the object is treated as immutable
+
+// Use keyof to infer valid keys for conversionRates
+type Unit = keyof typeof conversionRates;
 
 const AreaConverter: React.FC = () => {
   const [value, setValue] = useState<string>('0');
-  const [fromUnit, setFromUnit] = useState<string>('m2');
-  const [toUnit, setToUnit] = useState<string>('km2');
+  const [fromUnit, setFromUnit] = useState<Unit>('m2');
+  const [toUnit, setToUnit] = useState<Unit>('km2');
   const [result, setResult] = useState<string>('');
 
   // Convert the value from one unit to another
-  const convert = (inputValue: string, from: string, to: string) => {
+  const convert = (inputValue: string, from: Unit, to: Unit) => {
     const input = parseFloat(inputValue);
     if (isNaN(input)) {
       setResult("Invalid input");
@@ -44,14 +47,14 @@ const AreaConverter: React.FC = () => {
 
   // Handle "From" unit selection change
   const handleFromUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setFromUnit(unit);
     convert(value, unit, toUnit);
   };
 
   // Handle "To" unit selection change
   const handleToUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setToUnit(unit);
     convert(value, fromUnit, unit);
   };
@@ -65,7 +68,7 @@ const AreaConverter: React.FC = () => {
   };
 
   // Helper function to display unit name
-  const getUnitName = (unit: string) => {
+  const getUnitName = (unit: Unit) => {
     switch (unit) {
       case 'm2': return '제곱미터 (m²)';
       case 'a': return '아르 (a)';
@@ -127,7 +130,7 @@ const AreaConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {getUnitName(unit)}
+                {getUnitName(unit as Unit)}
               </option>
             ))}
           </select>
@@ -143,7 +146,7 @@ const AreaConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {getUnitName(unit)}
+                {getUnitName(unit as Unit)}
               </option>
             ))}
           </select>

@@ -16,16 +16,19 @@ const conversionRates = {
   nyang: 37.5,   // Nyang (Korean traditional weight)
   geun: 600,     // Geun (Korean traditional weight)
   gwan: 3750     // Gwan (Korean traditional weight)
-};
+} as const;
+
+// Use keyof to define valid unit types
+type Unit = keyof typeof conversionRates;
 
 const WeightConverter: React.FC = () => {
   const [value, setValue] = useState<string>('0');
-  const [fromUnit, setFromUnit] = useState<string>('mg');
-  const [toUnit, setToUnit] = useState<string>('g');
+  const [fromUnit, setFromUnit] = useState<Unit>('mg');
+  const [toUnit, setToUnit] = useState<Unit>('g');
   const [result, setResult] = useState<string>('');
 
   // Convert the value from one unit to another
-  const convert = (inputValue: string, from: string, to: string) => {
+  const convert = (inputValue: string, from: Unit, to: Unit) => {
     const input = parseFloat(inputValue);
     if (isNaN(input)) {
       setResult("Invalid input");
@@ -46,20 +49,20 @@ const WeightConverter: React.FC = () => {
 
   // Handle "From" unit selection change
   const handleFromUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setFromUnit(unit);
     convert(value, unit, toUnit);
   };
 
   // Handle "To" unit selection change
   const handleToUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setToUnit(unit);
     convert(value, fromUnit, unit);
   };
 
   // Helper function to display unit name
-  const getUnitName = (unit: string) => {
+  const getUnitName = (unit: Unit) => {
     switch (unit) {
       case 'mg': return '밀리그램 (mg)';
       case 'g': return '그램 (g)';
@@ -75,14 +78,6 @@ const WeightConverter: React.FC = () => {
       case 'gwan': return '관';
       default: return unit;
     }
-  };
-
-  // Handle simple input change
-  const handleSimpleInputChange = (delta: number) => {
-    const currentValue = parseFloat(value) || 0;
-    const newValue = (currentValue + delta).toFixed(4); // Maintain consistent decimal points
-    setValue(newValue);
-    convert(newValue, fromUnit, toUnit);
   };
 
   return (
@@ -104,23 +99,7 @@ const WeightConverter: React.FC = () => {
             placeholder="값을 입력하세요"
             className="w-full p-3 border border-gray-300 rounded-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {/* 간단입력 버튼 */}
-        <div className="flex flex-col justify-end mt-2 space-y-2">
-          <div className="flex space-x-2 w-full">
-            <button onClick={() => handleSimpleInputChange(1000)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1000</button>
-            <button onClick={() => handleSimpleInputChange(100)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+100</button>
-            <button onClick={() => handleSimpleInputChange(10)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+10</button>
-            <button onClick={() => handleSimpleInputChange(1)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1</button>
-          </div>
-          <div className="flex space-x-2 w-full">
-            <button onClick={() => handleSimpleInputChange(-1000)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1000</button>
-            <button onClick={() => handleSimpleInputChange(-100)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-100</button>
-            <button onClick={() => handleSimpleInputChange(-10)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-10</button>
-            <button onClick={() => handleSimpleInputChange(-1)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1</button>
-          </div>
         </div>
-        </div>
-        
 
         {/* From Unit Selection */}
         <div className="mb-6">
@@ -132,7 +111,7 @@ const WeightConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {getUnitName(unit)}
+                {getUnitName(unit as Unit)}
               </option>
             ))}
           </select>
@@ -148,7 +127,7 @@ const WeightConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {getUnitName(unit)}
+                {getUnitName(unit as Unit)}
               </option>
             ))}
           </select>

@@ -17,16 +17,18 @@ const conversionRates = {
   '정': 3.96,   // Assuming '町' is a traditional Japanese unit
   '리': 500,    // Assuming '里' is a traditional Chinese unit
   '해리': 1852  // Nautical mile
-};
+} as const; // Use 'as const' to make the object immutable and its keys literal
+
+type Unit = keyof typeof conversionRates; // Define the type of the keys
 
 const LengthConverter: React.FC = () => {
   const [value, setValue] = useState<string>('0');
-  const [fromUnit, setFromUnit] = useState<string>('cm');
-  const [toUnit, setToUnit] = useState<string>('m');
+  const [fromUnit, setFromUnit] = useState<Unit>('cm'); // Ensure the state uses the Unit type
+  const [toUnit, setToUnit] = useState<Unit>('m');
   const [result, setResult] = useState<string>('');
 
   // Convert the value from one unit to another
-  const convert = (inputValue: string, from: string, to: string) => {
+  const convert = (inputValue: string, from: Unit, to: Unit) => {
     const input = parseFloat(inputValue);
     if (isNaN(input)) {
       setResult("Invalid input");
@@ -47,14 +49,14 @@ const LengthConverter: React.FC = () => {
 
   // Handle "From" unit selection change
   const handleFromUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setFromUnit(unit);
     convert(value, unit, toUnit);
   };
 
   // Handle "To" unit selection change
   const handleToUnitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const unit = e.target.value;
+    const unit = e.target.value as Unit;
     setToUnit(unit);
     convert(value, fromUnit, unit);
   };

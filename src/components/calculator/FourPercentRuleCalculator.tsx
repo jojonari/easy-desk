@@ -35,7 +35,7 @@ const FourPercentRuleCalculator: React.FC = () => {
 
   // 실시간 계산 (useEffect 사용)
   useEffect(() => {
-    let yearResults: { year: number; annualWithdrawal: string; monthlyWithdrawal: string; remaining: string; realAnnualWithdrawal: string; realMonthlyWithdrawal: string; isNegative: boolean }[] = [];
+    const yearResults: { year: number; annualWithdrawal: string; monthlyWithdrawal: string; remaining: string; realAnnualWithdrawal: string; realMonthlyWithdrawal: string; isNegative: boolean }[] = [];
     let currentAmount = parseFloat(initialAmount.replace(/,/g, '')) || 0;
     const inflation = parseFloat(inflationRate) / 100;
     const returnRate = parseFloat(annualReturnRate) / 100;

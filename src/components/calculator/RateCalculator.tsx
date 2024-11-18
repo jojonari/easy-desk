@@ -2,12 +2,12 @@
 
 import convertToKoreanCurrency from '@/utils/UtilConvertToKoreanCurrency';
 import formatNumber from '@/utils/UtilFormatNumber';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // 쿠키 설정 함수
 const setCookie = (name: string, value: string, days: number) => {
   const date = new Date();
-  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
   document.cookie = `${name}=${value};expires=${date.toUTCString()};path=/`;
 };
 
@@ -26,13 +26,14 @@ const RateCalculator: React.FC = () => {
   const [result, setResult] = useState<string | null>('0');
   const [isMonthly, setIsMonthly] = useState<boolean>(false);
 
+  // 쿠키에서 초기 상태 설정
   useEffect(() => {
     const savedIsMonthly = getCookie('isMonthly') === 'true';
     setIsMonthly(savedIsMonthly);
   }, []);
 
-
-  const calculateRate = () => {
+  // 수익률 계산 함수
+  const calculateRate = useCallback(() => {
     const cap = parseFloat(capital.replace(/,/g, ''));
     let exp = parseFloat(annualExpense.replace(/,/g, ''));
 
@@ -40,18 +41,21 @@ const RateCalculator: React.FC = () => {
       exp *= 12; // 월간 생활비일 경우 연간으로 변환
     }
 
+    const rate = ((exp / cap) * 100).toFixed(2);
     setResult(`
       <div style="text-align: center;">
-        결과 : <span class="text-red-500 font-bold">${formatNumber(((exp / cap) * 100).toFixed(2))}%</span>
+        결과 : <span class="text-red-500 font-bold">${formatNumber(rate)}%</span>
       </div>
-      은퇴자금 ${convertToKoreanCurrency(cap)}원으로 ${isMonthly ? '월간' : '연간'} 생활비 ${convertToKoreanCurrency(annualExpense)}원을 사용하기 위해서는 필요 수익률은 <span class="text-red-500 font-bold"> ${formatNumber(((exp / cap) * 100).toFixed(2))}%</span> 입니다.`
-    );
-  };
-
-  useEffect(() => {
-    // capital이나 annualExpense가 변경될 때마다 자동으로 연이율 계산
-    calculateRate();
+      은퇴자금 ${convertToKoreanCurrency(cap)}원으로 ${isMonthly ? '월간' : '연간'} 생활비 ${convertToKoreanCurrency(
+      annualExpense
+    )}원을 사용하기 위해서는 필요 수익률은 <span class="text-red-500 font-bold">${formatNumber(rate)}%</span> 입니다.
+    `);
   }, [capital, annualExpense, isMonthly]);
+
+  // 값이 변경될 때마다 자동으로 수익률 계산
+  useEffect(() => {
+    calculateRate();
+  }, [calculateRate]);
 
   const handleCapitalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = formatNumber(e.target.value.replace(/,/g, ''));
@@ -89,7 +93,6 @@ const RateCalculator: React.FC = () => {
           />
           <span className="px-2 text-gray-900">원</span>
         </div>
-        {/* 한글로 변환된 금액 표시 */}
         <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
           {convertToKoreanCurrency(capital)} 원
         </div>
@@ -110,15 +113,20 @@ const RateCalculator: React.FC = () => {
           <input
             type="checkbox"
             checked={isMonthly}
-            maxLength={19}
             onChange={handleSwitchChange}
             className="sr-only"
           />
           <div className="w-12 h-6 bg-gray-300 rounded-full dark:bg-gray-700 transition-all duration-300"></div>
-          <div className={`dot absolute  left-0.5 w-5 h-5 bg-white rounded-full transition-all duration-300 ${isMonthly ? 'transform translate-x-6' : ''}`}></div>
-          <span className="text-lg font-semibold text-gray-700 mb-2">{isMonthly ? '월간 생활비' : '연간 생활비'}</span>
+          <div
+            className={`dot absolute left-0.5 w-5 h-5 bg-white rounded-full transition-all duration-300 ${
+              isMonthly ? 'transform translate-x-6' : ''
+            }`}
+          ></div>
+          <span className="ml-3 text-lg font-semibold text-gray-700">
+            {isMonthly ? '월간 생활비' : '연간 생활비'}
+          </span>
         </label>
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
           <input
             type="text"
             value={annualExpense}
@@ -128,7 +136,6 @@ const RateCalculator: React.FC = () => {
           />
           <span className="px-2 text-gray-900">원</span>
         </div>
-        {/* 한글로 변환된 금액 표시 */}
         <div className="mt-2 text-sm text-gray-700 font-semibold text-right">
           {convertToKoreanCurrency(annualExpense)} 원
         </div>
@@ -147,15 +154,12 @@ const RateCalculator: React.FC = () => {
         
       </div>
 
-      <div className="flex space-x-2">
       {result && (
         <div
           className="text-left text-lg font-semibold text-blue-800 mt-4"
           dangerouslySetInnerHTML={{ __html: result }}
         />
       )}
-      </div>
-      
     </div>
   );
 };
