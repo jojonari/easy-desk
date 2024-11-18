@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Sidebar() {
   const [openMenu, setOpenMenu] = useState({
@@ -32,56 +33,61 @@ export default function Sidebar() {
     <nav className="h-screen max-h-screen overflow-y-auto">
       <ul className="space-y-4">
         <li>
-          <a
-            href="#"
+          <button
             className="block font-bold hover:text-gray-400 p-2 flex items-center justify-between"
             onClick={() => handleMenuToggle("retirement")}
           >
             경제적 자유
             <span>
               {openMenu.retirement ? (
-                <span className="transform rotate-90">-</span> /* 열림 상태: 오른쪽 화살표 */
+                <span className="transform rotate-90">-</span> /* 열림 상태 */
               ) : (
-                <span className="transform rotate-180">+</span> /* 닫힘 상태: 아래 화살표 */
+                <span className="transform rotate-180">+</span> /* 닫힘 상태 */
               )}
             </span>
-          </a>
+          </button>
           {openMenu.retirement && (
             <ul className="space-y-2 pl-4">
               <li>
-                <a href="/retirement/capital" className="block hover:text-gray-400 p-2">
-                    은퇴자금 계산기
-                </a>
+                <Link href="/retirement/capital" className="block hover:text-gray-400 p-2">
+                  은퇴자금 계산기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a href="/retirement/rate" className="block hover:text-gray-400 p-2">
-                    수익률 계산기
-                </a>
+                <Link href="/retirement/rate" className="block hover:text-gray-400 p-2">
+                  수익률 계산기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a href="/retirement/expense" className="block hover:text-gray-400 p-2">
-                    은퇴생활비 계산기
-                </a>
+                <Link href="/retirement/expense" className="block hover:text-gray-400 p-2">
+                  은퇴생활비 계산기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a href="/retirement/compound" className="block hover:text-gray-400 p-2">
-                    복리 계산기
-                </a>
+                <Link href="/retirement/compound" className="block hover:text-gray-400 p-2">
+                  복리 계산기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a href="/retirement/double" className="block hover:text-gray-400 p-2">
-                    기간/수익률 계산기
-                </a>
+                <Link href="/retirement/double" className="block hover:text-gray-400 p-2">
+                  기간/수익률 계산기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a href="/retirement/fourPercentRule" className="block hover:text-gray-400 p-2">
-                    4%룰 인출 계산기
-                </a>
+                <Link href="/retirement/fourPercentRule" className="block hover:text-gray-400 p-2">
+                  4%룰 인출 계산기
+                </Link>
+                <hr className="border-gray-500" />
+              </li>
+              <li>
+                <Link href="/retirement/family" className="block hover:text-gray-400 p-2">
+                  가족 생애주기
+                </Link>
                 <hr className="border-gray-500" />
               </li>
             </ul>
@@ -90,47 +96,37 @@ export default function Sidebar() {
         <hr className="border-gray-500" />
 
         <li>
-          <a
-            href="#"
+          <button
             className="block font-bold hover:text-gray-400 p-2 flex items-center justify-between"
             onClick={() => handleMenuToggle("converter")}
           >
             변환기
             <span>
               {openMenu.converter ? (
-                <span className="transform rotate-90">-</span> /* 열림 상태: 오른쪽 화살표 */
+                <span className="transform rotate-90">-</span> /* 열림 상태 */
               ) : (
-                <span className="transform rotate-180">+</span> /* 닫힘 상태: 아래 화살표 */
+                <span className="transform rotate-180">+</span> /* 닫힘 상태 */
               )}
             </span>
-          </a>
+          </button>
           {openMenu.converter && (
             <ul className="space-y-2 pl-4">
               <li>
-                <a
-                  href="/converter/area"
-                  className="block hover:text-gray-400 p-2"
-                >
+                <Link href="/converter/area" className="block hover:text-gray-400 p-2">
                   넓이 변환기
-                </a>
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a
-                  href="/converter/length"
-                  className="block hover:text-gray-400 p-2"
-                >
+                <Link href="/converter/length" className="block hover:text-gray-400 p-2">
                   길이 변환기
-                </a>
+                </Link>
                 <hr className="border-gray-500" />
               </li>
               <li>
-                <a
-                  href="/converter/weight"
-                  className="block hover:text-gray-400 p-2"
-                >
+                <Link href="/converter/weight" className="block hover:text-gray-400 p-2">
                   무게 변환기
-                </a>
+                </Link>
                 <hr className="border-gray-500" />
               </li>
             </ul>
@@ -139,50 +135,9 @@ export default function Sidebar() {
         <hr className="border-gray-500" />
 
         <li>
-          <a
-            href="#"
-            className="block font-bold hover:text-gray-400 p-2 flex items-center justify-between"
-            onClick={() => handleMenuToggle("memo")}
-          >
-            메모
-            <span>
-              {openMenu.memo ? (
-                <span className="transform rotate-90">-</span> /* 열림 상태: 오른쪽 화살표 */
-              ) : (
-                <span className="transform rotate-180">+</span> /* 닫힘 상태: 아래 화살표 */
-              )}
-            </span>
-          </a>
-          {openMenu.memo && (
-            <ul className="space-y-2 pl-4">
-              <li>
-                <a href="/notes" className="block hover:text-gray-400 p-2">
-                  메모 리스트
-                </a>
-              </li>
-              <li>
-                <a href="/reminders" className="block hover:text-gray-400 p-2">
-                  리마인더
-                </a>
-              </li>
-            </ul>
-          )}
-        </li>
-        <hr className="border-gray-500" />
-
-        <li>
-          <a href="/calculator" className="block hover:text-gray-400 p-2"
-            onClick={() => handleMenuToggle("")}
-          >
+          <Link href="/calculator" className="block hover:text-gray-400 p-2">
             계산기
-          </a>
-        </li>
-        <hr className="border-gray-500" />
-
-        <li>
-          <a href="/contact" className="block hover:text-gray-400 p-2">
-            문의하기
-          </a>
+          </Link>
         </li>
       </ul>
       {/* 광고 */}

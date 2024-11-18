@@ -1,7 +1,8 @@
-import type { NextConfig } from "next";
+const prefix = 
+  process.env.NODE_ENV === 'production' ? 'http://jojonari.dev/new-rich/' : ''
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
+const nextConfig = {
+  output: 'export',
+  assetPrefix: prefix,
+  }
 export default nextConfig;

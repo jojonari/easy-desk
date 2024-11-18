@@ -4,6 +4,7 @@ import { useState } from "react";
 import localFont from "next/font/local";
 import Sidebar from "@/components/Sidebar";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,9 +42,9 @@ export default function RootLayout({
         <header className="bg-gray-800 text-white p-4 fixed top-0 left-0 right-0 z-50 flex justify-between items-center">
           <div className="text-xl font-bold">
             <span className="mr-2 text-green-500">💎</span>
-            <a href="/" className="hover:text-gray-400">
+            <Link href="/" className="hover:text-gray-400">
               New-Rich
-            </a>
+            </Link>
           </div>
           <button
             className="md:hidden text-white focus:outline-none"
@@ -79,14 +80,7 @@ export default function RootLayout({
           <section className="bg-gray-800 text-gray-400 w-full md:w-64 h-auto md:h-full p-4 pb-20 md:pb-4 md:fixed md:top-0 md:right-0 md:z-40">
             <div className="sticky md:top-16 md:block">
               <h2 className="text-lg font-bold">광고</h2>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
-              <p>배너 콘텐츠 여기에 추가하세요.</p>
+              <p>광고 영역</p>
             </div>
           </section>
         </div>
