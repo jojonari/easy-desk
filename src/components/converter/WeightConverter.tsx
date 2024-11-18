@@ -2,27 +2,26 @@
 
 import React, { useState } from 'react';
 
-// Define conversion factors relative to meters
+// Define conversion rates relative to grams (g)
 const conversionRates = {
-  mm: 0.001,
-  cm: 0.01,
-  m: 1,
-  km: 1000,
-  in: 0.0254,
-  ft: 0.3048,
-  yd: 0.9144,
-  mile: 1609.34,
-  '자': 0.303,  // Assuming '尺' is some traditional Chinese measurement
-  '간': 1.818,  // Assuming '間' is some traditional Korean measurement
-  '정': 3.96,   // Assuming '町' is a traditional Japanese unit
-  '리': 500,    // Assuming '里' is a traditional Chinese unit
-  '해리': 1852  // Nautical mile
+  mg: 0.001,     // Milligram
+  g: 1,          // Gram
+  kg: 1000,      // Kilogram
+  t: 1e6,        // Ton (Metric)
+  kt: 1e9,       // Kiloton
+  gr: 0.0647989, // Grain
+  oz: 28.3495,   // Ounce
+  lb: 453.592,   // Pound
+  don: 3.75,     // Don (Korean traditional weight)
+  nyang: 37.5,   // Nyang (Korean traditional weight)
+  geun: 600,     // Geun (Korean traditional weight)
+  gwan: 3750     // Gwan (Korean traditional weight)
 };
 
-const LengthConverter: React.FC = () => {
+const WeightConverter: React.FC = () => {
   const [value, setValue] = useState<string>('0');
-  const [fromUnit, setFromUnit] = useState<string>('cm');
-  const [toUnit, setToUnit] = useState<string>('m');
+  const [fromUnit, setFromUnit] = useState<string>('mg');
+  const [toUnit, setToUnit] = useState<string>('g');
   const [result, setResult] = useState<string>('');
 
   // Convert the value from one unit to another
@@ -33,9 +32,9 @@ const LengthConverter: React.FC = () => {
       return;
     }
 
-    const inputInMeters = input * conversionRates[from];
-    const outputValue = inputInMeters / conversionRates[to];
-    setResult(`${input} ${from} = ${outputValue.toFixed(4)} ${to}`);
+    const inputInGrams = input * conversionRates[from];
+    const outputValue = inputInGrams / conversionRates[to];
+    setResult(`${input} ${getUnitName(from)} = ${outputValue.toFixed(4)} ${getUnitName(to)}`);
   };
 
   // Handle value input change
@@ -59,10 +58,29 @@ const LengthConverter: React.FC = () => {
     convert(value, fromUnit, unit);
   };
 
-  // Handle simple input changes
+  // Helper function to display unit name
+  const getUnitName = (unit: string) => {
+    switch (unit) {
+      case 'mg': return '밀리그램 (mg)';
+      case 'g': return '그램 (g)';
+      case 'kg': return '킬로그램 (kg)';
+      case 't': return '톤 (t)';
+      case 'kt': return '킬로톤 (kt)';
+      case 'gr': return '그레인 (gr)';
+      case 'oz': return '온스 (oz)';
+      case 'lb': return '파운드 (lb)';
+      case 'don': return '돈';
+      case 'nyang': return '냥';
+      case 'geun': return '근';
+      case 'gwan': return '관';
+      default: return unit;
+    }
+  };
+
+  // Handle simple input change
   const handleSimpleInputChange = (delta: number) => {
     const currentValue = parseFloat(value) || 0;
-    const newValue = (currentValue + delta).toFixed(4);
+    const newValue = (currentValue + delta).toFixed(4); // Maintain consistent decimal points
     setValue(newValue);
     convert(newValue, fromUnit, toUnit);
   };
@@ -71,8 +89,8 @@ const LengthConverter: React.FC = () => {
     <div className="w-full space-y-8">
       <div className="p-6 bg-gray-100 rounded-lg shadow-md">
         <div className="mb-6 text-center">
-          <h2 className="text-3xl font-bold text-gray-800">길이 변환기</h2>
-          <p className="text-gray-600 text-sm mt-2">모든 길이 단위를 변환합니다.</p>
+          <h2 className="text-3xl font-bold text-gray-800">무게 변환기</h2>
+          <p className="text-gray-600 text-sm mt-2">모든 무게 단위를 변환합니다.</p>
           <hr className="my-4" />
         </div>
 
@@ -86,23 +104,23 @@ const LengthConverter: React.FC = () => {
             placeholder="값을 입력하세요"
             className="w-full p-3 border border-gray-300 rounded-md text-center text-gray-900 font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-
           {/* 간단입력 버튼 */}
-          <div className="flex flex-col justify-end mt-2 space-y-2">
-            <div className="flex space-x-2 w-full">
-              <button onClick={() => handleSimpleInputChange(1000)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1000</button>
-              <button onClick={() => handleSimpleInputChange(100)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+100</button>
-              <button onClick={() => handleSimpleInputChange(10)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+10</button>
-              <button onClick={() => handleSimpleInputChange(1)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1</button>
-            </div>
-            <div className="flex space-x-2 w-full">
-              <button onClick={() => handleSimpleInputChange(-1000)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1000</button>
-              <button onClick={() => handleSimpleInputChange(-100)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-100</button>
-              <button onClick={() => handleSimpleInputChange(-10)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-10</button>
-              <button onClick={() => handleSimpleInputChange(-1)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1</button>
-            </div>
+        <div className="flex flex-col justify-end mt-2 space-y-2">
+          <div className="flex space-x-2 w-full">
+            <button onClick={() => handleSimpleInputChange(1000)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1000</button>
+            <button onClick={() => handleSimpleInputChange(100)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+100</button>
+            <button onClick={() => handleSimpleInputChange(10)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+10</button>
+            <button onClick={() => handleSimpleInputChange(1)} className="border border-blue-400 text-blue-400 py-2 px-4 rounded-md flex-grow">+1</button>
+          </div>
+          <div className="flex space-x-2 w-full">
+            <button onClick={() => handleSimpleInputChange(-1000)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1000</button>
+            <button onClick={() => handleSimpleInputChange(-100)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-100</button>
+            <button onClick={() => handleSimpleInputChange(-10)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-10</button>
+            <button onClick={() => handleSimpleInputChange(-1)} className="border border-red-400 text-red-400 py-2 px-4 rounded-md flex-grow">-1</button>
           </div>
         </div>
+        </div>
+        
 
         {/* From Unit Selection */}
         <div className="mb-6">
@@ -114,7 +132,7 @@ const LengthConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {unit}
+                {getUnitName(unit)}
               </option>
             ))}
           </select>
@@ -130,7 +148,7 @@ const LengthConverter: React.FC = () => {
           >
             {Object.keys(conversionRates).map((unit) => (
               <option key={unit} value={unit}>
-                {unit}
+                {getUnitName(unit)}
               </option>
             ))}
           </select>
@@ -149,4 +167,4 @@ const LengthConverter: React.FC = () => {
   );
 };
 
-export default LengthConverter;
+export default WeightConverter;

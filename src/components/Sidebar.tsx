@@ -126,10 +126,10 @@ export default function Sidebar() {
               </li>
               <li>
                 <a
-                  href="/date-converter"
+                  href="/converter/weight"
                   className="block hover:text-gray-400 p-2"
                 >
-                  날짜 변환기
+                  무게 변환기
                 </a>
                 <hr className="border-gray-500" />
               </li>
