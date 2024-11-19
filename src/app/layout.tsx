@@ -41,9 +41,9 @@ export default function RootLayout({
         {/* Header with centered Logo and Hamburger Button */}
         <header className="bg-gray-800 text-white p-4 fixed top-0 left-0 right-0 z-50 flex justify-between items-center">
           <div className="text-xl font-bold">
-            <span className="mr-2 text-green-500">💎</span>
+            <span className="mr-2 text-green-500">🖥️</span>
             <Link href="/" className="hover:text-gray-400">
-              New-Rich
+              EasyDesk
             </Link>
           </div>
           <button
