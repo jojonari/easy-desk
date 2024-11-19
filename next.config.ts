@@ -1,5 +1,5 @@
 const prefix = 
-  process.env.NODE_ENV === 'production' ? 'https://github.io/jojonari/new-rich' : ''
+  process.env.NODE_ENV === 'production' ? 'http://just-new.com' : ''
 
 const nextConfig = {
   output: 'export',
