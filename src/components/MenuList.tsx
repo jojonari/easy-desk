@@ -1,8 +1,21 @@
 "use client";
 
 import Link from "next/link";
+// Define the props type for MenuList
+interface MenuItem {
+  href: string;
+  label: string;
+  description: string;
+  count: number;
+  likes: number;
+}
 
-const MenuList = ({ title, menu }) => {
+interface MenuListProps {
+  title: string;
+  menu: MenuItem[];
+}
+
+const MenuList: React.FC<MenuListProps> = ({ title, menu }) => {
   return (
     <div>
       <h2 className="text-xl font-semibold mt-8 mb-4">{title}</h2>

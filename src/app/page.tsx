@@ -1,4 +1,3 @@
-import MenuList from '@/components/MenuList';
 import React from 'react';
 
 const Home: React.FC = () => {
