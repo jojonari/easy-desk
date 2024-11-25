@@ -45,50 +45,50 @@ export default function HOME() {
       href: "/retirement/capital",
       label: "은퇴자금 계산기",
       description: "은퇴 후 필요 자금을 계산합니다.",
-      count: 12345,
-      likes: 87,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/rate",
       label: "수익률 계산기",
       description: "투자 수익률을 계산합니다.",
-      count: 8765,
-      likes: 54,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/expense",
       label: "은퇴생활비 계산기",
       description: "은퇴 후 월간 생활비를 추산합니다.",
-      count: 2345,
-      likes: 32,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/compound",
       label: "복리 계산기",
       description: "복리 효과를 계산합니다.",
-      count: 6543,
-      likes: 48,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/double",
       label: "기간/수익률 계산기",
       description: "자산 두 배가 되는 기간이나 수익률을 계산합니다.",
-      count: 4321,
-      likes: 29,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/fourPercentRule",
       label: "4%룰 인출 계산기",
       description: "4%룰에 따라 연간 인출 금액을 계산합니다.",
-      count: 7890,
-      likes: 61,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/retirement/family",
       label: "가족 생애주기",
       description: "가족 생애주기 및 재정 계획을 탐색합니다.",
-      count: 3456,
-      likes: 19,
+      count: 0,
+      likes: 0,
     },
   ];
 
@@ -97,22 +97,22 @@ export default function HOME() {
       href: "/converter/area",
       label: "넓이 변환기",
       description: "제곱미터(m²)와 평수를 상호 변환합니다.",
-      count: 45678,
-      likes: 210,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/converter/length",
       label: "길이 변환기",
       description: "킬로미터(km)와 마일을 상호 변환합니다.",
-      count: 34567,
-      likes: 187,
+      count: 0,
+      likes: 0,
     },
     {
       href: "/converter/weight",
       label: "무게 변환기",
       description: "킬로그램(kg)과 파운드를 상호 변환합니다.",
-      count: 23456,
-      likes: 145,
+      count: 0,
+      likes: 0,
     },
   ];
 
@@ -143,7 +143,7 @@ export default function HOME() {
       </div>
 
       {/* Bottom Navigation for Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-2 border-t border-gray-200 md:hidden">
+      {/* <div className="fixed bottom-0 left-0 right-0 bg-white shadow-md p-2 border-t border-gray-200 md:hidden">
         <div className="flex justify-between text-sm text-gray-600">
           <Link href="/calendar" className="flex flex-col items-center">
             📅 <span>캘린더</span>
@@ -158,7 +158,7 @@ export default function HOME() {
             👤 <span>마이페이지</span>
           </Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
