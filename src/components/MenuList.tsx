@@ -121,6 +121,8 @@ export default function HOME() {
       {/* Desktop View */}
       <div className=" md:block">
         <MenuList title="은퇴 계산기" menu={retirementMenu} />
+        
+        {/* 쿠팡 파트너스 */}
         <div className="pt-4 flex justify-between items-center">
             <iframe
             src="https://ads-partners.coupang.com/widgets.html?id=820115&template=carousel&trackingCode=AF8867686&subId=&width=680&height=140&tsource="
@@ -130,16 +132,9 @@ export default function HOME() {
             title="Advertisement"
             ></iframe>
         </div>
+        
         <MenuList title="변환기" menu={converterMenu} />
-        <div className="pt-4 flex justify-between items-center">
-            <iframe
-            src="https://ads-partners.coupang.com/widgets.html?id=820115&template=carousel&trackingCode=AF8867686&subId=&width=680&height=140&tsource="
-            width="100%"
-            height="140"
-            className="mx-auto"
-            title="Advertisement"
-            ></iframe>
-        </div>
+
       </div>
 
       {/* Bottom Navigation for Mobile */}

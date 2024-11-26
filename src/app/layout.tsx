@@ -26,10 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* 구글 에드센스 */}
+        {/* 구글 에드센스 사이트인증 */}
         <meta name="google-adsense-account" content="ca-pub-2381704608967129" />
         {/* 네이버 서치마스터 */}
         <meta name="naver-site-verification" content="a648ad0c8431af02feb7b2cb2d0bb83055da0058" />
+        {/* 구글 광고 */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2381704608967129" crossOrigin="anonymous"></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
