@@ -1,11 +1,9 @@
-User-agent: Googlebot
-Disallow:
+# *
+User-agent: *
+Allow: /
 
-User-agent: bingbot
-Disallow:
+# Host
+Host: https://just-new.com
 
-User-agent: Yeti
-Disallow:
-
-User-agent: Daumoa
-Disallow:
+# Sitemaps
+Sitemap: https://just-new.com/sitemap.xml
